@@ -46,3 +46,4 @@ video/node_modules/
 video/assets/*.webm
 video/*.mp4
 .env*.local
+video/assets/*.mp4

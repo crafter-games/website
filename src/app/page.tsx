@@ -247,6 +247,30 @@ export default function Home() {
         </div>
       </div>
 
+      <section
+        id="trailer"
+        className="mx-auto w-full max-w-6xl px-4 pt-16 sm:px-6"
+      >
+        <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <h2 className="font-display font-extrabold text-4xl tracking-tight sm:text-5xl">
+            Tráiler
+          </h2>
+          <p className="max-w-md text-mute">
+            Treinta segundos de partidas reales. Dale play con sonido.
+          </p>
+        </div>
+        <div className="overflow-hidden rounded-3xl border border-violet/40 bg-ink-2 shadow-[0_30px_80px_-30px_rgb(169_112_255/0.45)]">
+          <video
+            className="aspect-video w-full"
+            src="/media/trailer.mp4"
+            poster="/media/trailer.jpg"
+            controls
+            playsInline
+            preload="metadata"
+          />
+        </div>
+      </section>
+
       <Shelf
         id="jugar"
         title="Para jugar"

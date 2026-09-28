@@ -1,0 +1,135 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1c1840;--card:#fff;--card2:#efeefa;--muted:#5e5a86;--yellow:#ffc933;--yd:#d69a00;--red:#f2545b;--blue:#3d8bff;--amber:#e69a00;--green:#1f9d60;--gbg:#dff5e9}
+*{box-sizing:border-box;margin:0}
+body{font-family:Nunito,sans-serif;color:var(--ink);background:var(--field);background-image:radial-gradient(rgba(255,255,255,.12) 1.5px,transparent 1.5px);background-size:26px 26px;height:100vh;overflow:hidden;display:flex;flex-direction:column;align-items:center;padding:28px 40px}
+.top{width:100%;max-width:1100px;display:flex;align-items:center;gap:18px}
+.chip{background:var(--card);border:3px solid var(--ink);border-radius:14px;box-shadow:0 4px 0 var(--ink);padding:8px 14px;font-weight:900;display:flex;gap:8px;align-items:center}
+.bar{flex:1;height:22px;background:var(--card2);border:3px solid var(--ink);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--yellow);transition:width .6s cubic-bezier(.2,.9,.2,1)}
+.card{margin-top:26px;width:100%;max-width:1100px;background:var(--card);border:4px solid var(--ink);border-radius:26px;box-shadow:0 8px 0 var(--ink);padding:30px 36px}
+.unit{font-weight:900;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-size:15px}
+h1{font-family:'Lilita One';font-weight:400;font-size:40px;line-height:1.15;margin-top:8px}
+code{font-family:ui-monospace,Menlo,monospace;background:var(--card2);border-radius:6px;padding:0 6px;font-size:.85em}
+.o code{background:rgba(28,24,64,.35);color:#fff}
+.opts{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:1100px}
+.o{display:flex;gap:14px;align-items:center;color:#fff;font-weight:900;font-size:24px;border:4px solid var(--ink);border-radius:20px;box-shadow:0 6px 0 var(--ink);padding:20px 22px;min-height:92px;transition:transform .15s,opacity .3s,filter .3s}
+.o .s{width:28px;height:28px;background:#fff;flex:none}
+.o.sel{transform:translateY(4px);box-shadow:0 2px 0 var(--ink);outline:5px solid #fff;outline-offset:-10px}
+.o.dim{opacity:.35;filter:saturate(.4)}
+.o.ok{outline:6px solid var(--yellow);outline-offset:-11px}
+.conf{margin-top:18px;display:flex;gap:14px}
+.cb{background:var(--card);border:3px solid var(--ink);border-radius:16px;box-shadow:0 5px 0 var(--ink);padding:12px 22px;font-weight:900;font-size:20px;transition:transform .12s}
+.cb.hot{background:var(--yellow);transform:translateY(3px);box-shadow:0 2px 0 var(--ink)}
+.rev{margin-top:18px;width:100%;max-width:1100px;background:var(--gbg);border:4px solid var(--green);border-radius:20px;padding:18px 24px;font-weight:800;font-size:20px;display:none;align-items:center;gap:18px}
+.rev b{font-family:'Lilita One';font-weight:400;color:var(--green);font-size:34px;white-space:nowrap}
+.xp{position:fixed;font-family:'Lilita One';font-size:64px;color:var(--yellow);-webkit-text-stroke:3px var(--ink);right:80px;top:90px;opacity:0;transform:scale(.4);transition:all .45s cubic-bezier(.2,1.6,.4,1)}
+.xp.on{opacity:1;transform:scale(1)}
+</style></head><body>
+<div class="top"><div class="chip" id="brand"></div><div class="bar"><i id="prog" style="width:0"></i></div><div class="chip">⚡ <span id="xp">0</span> XP</div><div class="chip">🔥 <span id="streak">0</span></div></div>
+<div class="card"><div class="unit" id="unit"></div><h1 id="stem"></h1></div>
+<div class="opts" id="opts"></div>
+<div class="conf" id="conf"><div class="cb">🎲 Adivino</div><div class="cb">👍 Bastante</div><div class="cb" id="sure">🎯 Seguro</div></div>
+<div class="rev" id="rev"><b>¡Correcto!</b><span id="why"></span></div>
+<div class="xp" id="pop">+12 XP</div>
+<script>
+const ALL={
+ "aws": [
+  {
+   "unit": "s3-storage-classes",
+   "stem": "Única copia, lectura mensual, acceso en milisegundos, debe sobrevivir a perder una AZ → ?",
+   "options": [
+    "S3 One Zone-IA",
+    "S3 Standard-IA",
+    "S3 Glacier Flexible Retrieval",
+    "S3 Glacier Deep Archive"
+   ],
+   "answer": 1,
+   "why": "Standard-IA da milisegundos y guarda en varias AZ. One Zone-IA falla el requisito de AZ y Glacier Flexible exige restore."
+  },
+  {
+   "unit": "vpc-endpoints",
+   "stem": "Una subnet privada necesita acceso a Amazon S3 sin NAT ni cargos extra de endpoint → ?",
+   "options": [
+    "Interface endpoint for S3",
+    "Gateway endpoint for S3",
+    "NAT gateway per AZ",
+    "Internet gateway route"
+   ],
+   "answer": 1,
+   "why": "El gateway endpoint para S3 no tiene cargo adicional y funciona por route table. El interface endpoint cobra por hora y por datos procesados."
+  },
+  {
+   "unit": "lambda",
+   "stem": "Ejecutar código cada vez que llega un objeto a S3, sin administrar servidores → ?",
+   "options": [
+    "Amazon EC2 with a cron job",
+    "AWS Lambda",
+    "Amazon ECS on EC2",
+    "AWS Batch"
+   ],
+   "answer": 1,
+   "why": "Un manejador corto disparado por un evento de S3 es el caso típico de Lambda. ECS on EC2 o Batch agregan infraestructura o colas que no hacen falta."
+  }
+ ],
+ "claude": [
+  {
+   "unit": "u-permission-modes",
+   "stem": "Autoaprobar ediciones y `mv`/`mkdir` en el proyecto; el resto de Bash sigue preguntando → ?",
+   "options": [
+    "`default`",
+    "`acceptEdits`",
+    "`auto`",
+    "`dontAsk`"
+   ],
+   "answer": 1,
+   "why": "`acceptEdits` aprueba ediciones y comandos de archivos dentro del directorio de trabajo, y el resto de Bash sigue preguntando. `auto` correría todo tras el clasificador."
+  },
+  {
+   "unit": "u-context-window",
+   "stem": "Un CLAUDE.md en un subdirectorio de tu directorio de trabajo carga cuando → ?",
+   "options": [
+    "At launch, with the root one",
+    "Claude reads files in that subdirectory",
+    "You run /compact",
+    "You run /memory"
+   ],
+   "answer": 1,
+   "why": "Los CLAUDE.md de subdirectorios cargan bajo demanda, al leer archivos ahí. Al inicio solo cargan los del directorio de trabajo y los superiores."
+  },
+  {
+   "unit": "u-tools",
+   "stem": "Regla de permisos que impide a las herramientas de archivos leer algo bajo ~/secrets → ?",
+   "options": [
+    "Edit(~/secrets/**)",
+    "Read(~/secrets/**)",
+    "Glob(~/secrets/**)",
+    "WebFetch(domain:secrets)"
+   ],
+   "answer": 1,
+   "why": "Las reglas de ruta solo se revisan con Read(...) y Edit(...); Read cubre la lectura. Edit(...) solo bloquea cambios, y una regla Glob con ruta nunca se consulta."
+  }
+ ]
+};const app=new URLSearchParams(location.search).get('app')||'claude';
+const THEME={claude:{field:'#bf4f2a',brand:'learnclaudecode'},aws:{field:'#3346d6',brand:'learnaws'}}[app];
+document.body.style.setProperty('--field',THEME.field);document.getElementById('brand').textContent=THEME.brand;
+const QS=ALL[app],C=['var(--red)','var(--blue)','var(--amber)','var(--green)'];
+const SH=['polygon(50% 6%,96% 92%,4% 92%)','polygon(50% 0,100% 50%,50% 100%,0 50%)','circle(48% at 50% 50%)','inset(8% round 3px)'];
+const md=s=>s.replace(/[&<]/g,c=>({'&':'&amp;','<':'&lt;'}[c])).replace(/`([^`]+)`/g,'<code>$1</code>');
+const w=ms=>new Promise(r=>setTimeout(r,ms));let xp=0,st=0;
+async function run(){for(let i=0;i<QS.length;i++){const q=QS[i];
+ document.getElementById('unit').textContent='Pregunta '+(i+1)+' de 8 · '+q.unit.replace(/^u-/,'').replace(/-/g,' ');
+ document.getElementById('stem').innerHTML=md(q.stem);document.getElementById('rev').style.display='none';
+ document.querySelectorAll('.cb').forEach(b=>b.classList.remove('hot'));
+ const box=document.getElementById('opts');box.innerHTML=q.options.map((o,j)=>'<div class="o" style="background:'+C[j]+'"><span class="s" style="clip-path:'+SH[j]+'"></span>'+md(o)+'</div>').join('');
+ document.getElementById('prog').style.width=((i+.3)/8*100)+'%';
+ await w(1900);const os=[...box.children];os[q.answer].classList.add('sel');await w(700);
+ document.getElementById('sure').classList.add('hot');await w(450);
+ os.forEach((o,j)=>j===q.answer?o.classList.add('ok'):o.classList.add('dim'));
+ xp+=12;st++;document.getElementById('xp').textContent=xp;document.getElementById('streak').textContent=st;
+ document.getElementById('why').innerHTML=md(q.why);document.getElementById('rev').style.display='flex';
+ const p=document.getElementById('pop');p.classList.add('on');document.getElementById('prog').style.width=((i+1)/8*100)+'%';
+ await w(900);p.classList.remove('on');await w(1500);}}
+window.__start=run;
+</script></body></html>

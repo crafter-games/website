@@ -1,0 +1,78 @@
+{
+ "aws": [
+  {
+   "unit": "s3-storage-classes",
+   "stem": "Única copia, lectura mensual, acceso en milisegundos, debe sobrevivir a perder una AZ → ?",
+   "options": [
+    "S3 One Zone-IA",
+    "S3 Standard-IA",
+    "S3 Glacier Flexible Retrieval",
+    "S3 Glacier Deep Archive"
+   ],
+   "answer": 1,
+   "why": "Standard-IA da milisegundos y guarda en varias AZ. One Zone-IA falla el requisito de AZ y Glacier Flexible exige restore."
+  },
+  {
+   "unit": "vpc-endpoints",
+   "stem": "Una subnet privada necesita acceso a Amazon S3 sin NAT ni cargos extra de endpoint → ?",
+   "options": [
+    "Interface endpoint for S3",
+    "Gateway endpoint for S3",
+    "NAT gateway per AZ",
+    "Internet gateway route"
+   ],
+   "answer": 1,
+   "why": "El gateway endpoint para S3 no tiene cargo adicional y funciona por route table. El interface endpoint cobra por hora y por datos procesados."
+  },
+  {
+   "unit": "lambda",
+   "stem": "Ejecutar código cada vez que llega un objeto a S3, sin administrar servidores → ?",
+   "options": [
+    "Amazon EC2 with a cron job",
+    "AWS Lambda",
+    "Amazon ECS on EC2",
+    "AWS Batch"
+   ],
+   "answer": 1,
+   "why": "Un manejador corto disparado por un evento de S3 es el caso típico de Lambda. ECS on EC2 o Batch agregan infraestructura o colas que no hacen falta."
+  }
+ ],
+ "claude": [
+  {
+   "unit": "u-permission-modes",
+   "stem": "Autoaprobar ediciones y `mv`/`mkdir` en el proyecto; el resto de Bash sigue preguntando → ?",
+   "options": [
+    "`default`",
+    "`acceptEdits`",
+    "`auto`",
+    "`dontAsk`"
+   ],
+   "answer": 1,
+   "why": "`acceptEdits` aprueba ediciones y comandos de archivos dentro del directorio de trabajo, y el resto de Bash sigue preguntando. `auto` correría todo tras el clasificador."
+  },
+  {
+   "unit": "u-context-window",
+   "stem": "Un CLAUDE.md en un subdirectorio de tu directorio de trabajo carga cuando → ?",
+   "options": [
+    "At launch, with the root one",
+    "Claude reads files in that subdirectory",
+    "You run /compact",
+    "You run /memory"
+   ],
+   "answer": 1,
+   "why": "Los CLAUDE.md de subdirectorios cargan bajo demanda, al leer archivos ahí. Al inicio solo cargan los del directorio de trabajo y los superiores."
+  },
+  {
+   "unit": "u-tools",
+   "stem": "Regla de permisos que impide a las herramientas de archivos leer algo bajo ~/secrets → ?",
+   "options": [
+    "Edit(~/secrets/**)",
+    "Read(~/secrets/**)",
+    "Glob(~/secrets/**)",
+    "WebFetch(domain:secrets)"
+   ],
+   "answer": 1,
+   "why": "Las reglas de ruta solo se revisan con Read(...) y Edit(...); Read cubre la lectura. Edit(...) solo bloquea cambios, y una regla Glob con ruta nunca se consulta."
+  }
+ ]
+}
