@@ -26,9 +26,26 @@ export const metadata: Metadata = {
     title: "Crafter Games",
     description:
       "Juegos recreativos y educativos hechos por la comunidad de Crafter Station.",
+    url: "https://games.crafter.run",
+    siteName: "Crafter Games",
+    locale: "es_PE",
+    type: "website",
+    images: [
+      {
+        url: "/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Crafter Games: Jugamos lo que shipeamos.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Crafter Games",
+    description:
+      "Juegos recreativos y educativos hechos por la comunidad de Crafter Station.",
     images: ["/og.jpg"],
   },
-  twitter: { card: "summary_large_image", images: ["/og.jpg"] },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
