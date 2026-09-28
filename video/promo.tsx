@@ -108,7 +108,7 @@ function GameShot(props: {
 const TILES = [
   { src: "assets/smash.mp4", from: 9, c: "#FFB23F" },
   { src: "assets/ones.mp4", from: 20, c: "#9BE08A" },
-  { src: "assets/iris.mp4", from: 33, c: "#6FE3EC" },
+  { src: "assets/iris.mp4", from: 56, c: "#6FE3EC" },
   { src: "assets/learn-claude.mp4", from: 6, c: "#FF7A4D" },
   { src: "assets/learn-aws.mp4", from: 10, c: "#FFD23F" },
 ];
@@ -118,24 +118,24 @@ export default (
     <shader id="silk" wgsl={SILK} uniforms={({ t }: T) => ({ p: { time: t, kick: kick(t), mixT: tintAt(t)[3], pad: 0, tint: tintAt(t) } })} />
 
     {/* 0-3 intro */}
-    <card in={0} out={3} direction="column" gap={40}>
-      <image src="assets/logo.png" width={240} height={240} radius={52} in={0.5} enter="pop" enterBeats={0.5} />
-      <text font="xb" size={170} color={PAPER} tracking={-0.05} in={1} enter="slide-up" enterBeats={0.4} nowrap>Crafter Games</text>
-      <text font="mono" size={46} color={VIOLET} tracking={0.14} in={2} enter="type" enterBeats={0.6} nowrap>POR CRAFTER STATION · HECHO EN PERÚ</text>
+    <card in={0} out={3.75} direction="column" gap={40}>
+      <image src="assets/logo.png" width={240} height={240} radius={52} in={0.25} enter="pop" enterBeats={0.4} />
+      <text font="xb" size={170} color={PAPER} tracking={-0.05} in={0.75} enter="slide-up" enterBeats={0.35} nowrap>Crafter Games</text>
+      <text font="mono" size={46} color={VIOLET} tracking={0.14} in={1.5} enter="type" enterBeats={0.5} nowrap>POR CRAFTER STATION · HECHO EN PERÚ</text>
     </card>
 
     {/* 3-6 claim, one word per beat */}
-    <box in={3} out={5.7} left={96} top={200} direction="column" gap={0}>
+    <box in={3.75} out={5.7} left={96} top={200} direction="column" gap={0}>
       <text font="xb" size={220} color={PAPER} tracking={-0.055} lineHeight={0.9} enter="slide-up" enterBeats={0.25} nowrap>Jugamos</text>
-      <text font="xb" size={220} color={PAPER} tracking={-0.055} lineHeight={0.9} in={3.5} enter="slide-up" enterBeats={0.25} nowrap>lo que</text>
-      <text font="xb" size={220} color={VIOLET} tracking={-0.055} lineHeight={0.9} in={4} enter="slide-up" enterBeats={0.25} nowrap>shipeamos.</text>
-      <text font="mono" size={46} color={MUTE} tracking={0.1} in={4.5} enter="type" enterBeats={0.5} nowrap>5 JUEGOS · RECREATIVOS Y EDUCATIVOS</text>
+      <text font="xb" size={220} color={PAPER} tracking={-0.055} lineHeight={0.9} in={4.15} enter="slide-up" enterBeats={0.25} nowrap>lo que</text>
+      <text font="xb" size={220} color={VIOLET} tracking={-0.055} lineHeight={0.9} in={4.55} enter="slide-up" enterBeats={0.25} nowrap>shipeamos.</text>
+      <text font="mono" size={46} color={MUTE} tracking={0.1} in={4.9} enter="type" enterBeats={0.35} nowrap>5 JUEGOS · RECREATIVOS Y EDUCATIVOS</text>
     </box>
 
     <Chrome from={6} to={26} />
     <GameShot at={6} src="assets/smash.mp4" from={2} n="01" kind="PELEA" name={["Crafter", "Smash"]} line={["los crafters,", "a golpes"]} accent="#FFB23F" />
     <GameShot at={10} src="assets/ones.mp4" from={6} n="02" kind="ARTILLERÍA" name={["Craft", "Ones"]} line={["criaturas", "peruanas, 1v1"]} accent="#9BE08A" />
-    <GameShot at={14} src="assets/iris.mp4" from={27} n="03" kind="VISUAL NOVEL" name={["Iris.exe"]} line={["citas y misterio", "en un Code Brew"]} accent="#6FE3EC" />
+    <GameShot at={14} src="assets/iris.mp4" from={45.5} n="03" kind="VISUAL NOVEL" name={["Iris.exe"]} line={["citas y misterio", "en un Code Brew"]} accent="#6FE3EC" />
     <GameShot at={18} src="assets/learn-claude.mp4" from={0.4} n="04" kind="EDUCATIVO" name={["learn", "claude", "code"]} nameSize={80} line={["labs en la terminal"]} accent="#FF7A4D" />
     <GameShot at={22} src="assets/learn-aws.mp4" from={0.4} n="05" kind="EDUCATIVO" name={["learn", "aws"]} line={["aprueba AWS", "SAA-C03"]} accent="#FFD23F" />
 
