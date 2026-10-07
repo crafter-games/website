@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://games.crafter.run"),
+  metadataBase: new URL("https://crafter.games"),
   title: "Crafter Games",
   description:
     "Juegos recreativos y educativos hechos por la comunidad de Crafter Station. Open source, gratis y desde Perú.",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: "Crafter Games",
     description:
       "Juegos recreativos y educativos hechos por la comunidad de Crafter Station.",
-    url: "https://games.crafter.run",
+    url: "https://crafter.games",
     siteName: "Crafter Games",
     locale: "es_PE",
     type: "website",

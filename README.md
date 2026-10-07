@@ -2,7 +2,7 @@
 
 Landing de [crafter-games](https://github.com/crafter-games): juegos recreativos y educativos de la comunidad de Crafter Station.
 
-Live: https://games.crafter.run
+Live: https://crafter.games
 
 ```bash
 bun install
