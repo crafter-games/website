@@ -19,7 +19,7 @@ export const games: Game[] = [
     kind: "recreativo",
     tagline: "Pelea de plataformas con los crafters",
     blurb:
-      "Railly, Anthony, Jibaru, Shiara y Edward a golpes sobre una azotea de Lima. Física tipo Melee, 1P vs CPU, local para dos y soporte de mandos.",
+      "Railly, Anthony, Jibaru, Shiara y Edward se ponen a pelear sobre una azotea de Lima. Física tipo Melee, 1P vs CPU, local para dos y soporte de mandos.",
     url: "https://smash.crafter.run",
     repo: "https://github.com/crafter-games/crafter-smash",
     media: { poster: "/media/smash.jpg", video: "/media/smash.mp4" },
