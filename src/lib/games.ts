@@ -14,6 +14,18 @@ export type Game = {
 
 export const games: Game[] = [
   {
+    slug: "mothlight",
+    name: "Mothlight",
+    kind: "recreativo",
+    tagline: "El último invitado",
+    blurb:
+      "Un taller clausurado, tres rostros y una puerta que no debería abrirse. Explora un diorama 3D, combina objetos y resuelve sus enigmas. En español e inglés.",
+    url: "https://mothlight.crafter.games",
+    media: { poster: "/media/mothlight.jpg" },
+    accent: "#D8B66A",
+    tags: ["Terror", "Escape room", "10–15 min"],
+  },
+  {
     slug: "smash",
     name: "Crafter Smash",
     kind: "recreativo",
