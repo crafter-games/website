@@ -21,7 +21,7 @@ export const games: Game[] = [
     blurb:
       "Un taller clausurado, tres rostros y una puerta que no debería abrirse. Explora un diorama 3D, combina objetos y resuelve sus enigmas. En español e inglés.",
     url: "https://mothlight.crafter.games",
-    media: { poster: "/media/mothlight.jpg" },
+    media: { poster: "/media/mothlight.jpg", video: "/media/mothlight.mp4" },
     accent: "#D8B66A",
     tags: ["Terror", "Escape room", "10–15 min"],
   },
