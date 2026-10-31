@@ -17,13 +17,13 @@ export const games: Game[] = [
     slug: "mothlight",
     name: "Mothlight",
     kind: "recreativo",
-    tagline: "El último invitado",
+    tagline: "Antología de escape rooms de terror",
     blurb:
-      "Un taller clausurado, tres rostros y una puerta que no debería abrirse. Explora un diorama 3D, combina objetos y resuelve sus enigmas. En español e inglés.",
+      "Dos capítulos: El último invitado, un taller clausurado con tres rostros, y La sala de los durmientes, un asilo de 1892 donde una nana no debería sonar. Explora dioramas 3D, combina objetos y resuelve sus enigmas. En español e inglés.",
     url: "https://mothlight.crafter.games",
     media: { poster: "/media/mothlight.jpg", video: "/media/mothlight.mp4" },
     accent: "#D8B66A",
-    tags: ["Terror", "Escape room", "10–15 min"],
+    tags: ["Terror", "Escape room", "2 capítulos"],
   },
   {
     slug: "smash",
