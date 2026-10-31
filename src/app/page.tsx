@@ -25,6 +25,8 @@ function GameMedia({ game, priority }: { game: Game; priority?: boolean }) {
       alt={`Pantalla de ${game.name}`}
       width={960}
       height={540}
+      preload={priority}
+      sizes="(min-width: 1024px) 512px, (min-width: 768px) 50vw, 100vw"
     />
   );
 }
@@ -211,7 +213,7 @@ export default function Home() {
           </div>
 
           <div className="relative grid grid-cols-6 grid-rows-6 gap-3 [aspect-ratio:1/1] max-lg:max-h-[520px]">
-            {play.map((g, i) => (
+            {play.slice(0, 3).map((g, i) => (
               <a
                 key={g.slug}
                 href={g.url}
@@ -267,7 +269,14 @@ export default function Home() {
             controls
             playsInline
             preload="metadata"
-          />
+          >
+            <track
+              kind="captions"
+              src="/media/trailer.es.vtt"
+              srcLang="es"
+              label="Español"
+            />
+          </video>
         </div>
       </section>
 
